@@ -74,7 +74,6 @@ class News extends BaseController
             return $this->new();
         }
 
-        // gets the validated data
         $post = $this->validator->getValidated();
 
         $model = model(NewsModel::class);
@@ -85,6 +84,94 @@ class News extends BaseController
             'body' => $post['body'],
         ]);
 
-        return view('templates/header', ['title' => 'Create a news item']) . view('news/success') . view('templates/footer');
+        // Set flash message for the news index page
+        session()->setFlashdata('message', 'News item created successfully');
+
+        // Show success page with auto-redirect
+        return view('news/success');
+    }
+
+    /**
+     * Summary of edit
+     * @param mixed $slug
+     * @return string
+     */
+    public function edit(?string $slug = null)
+    {
+        helper('form');
+        $model = model(NewsModel::class);
+        $news = $model->getNews($slug);
+
+        if ($news === null) {
+            throw new PageNotFoundException('Cannot find the news item: ' . $slug);
+        }
+
+        $data = [
+            'title' => 'Edit News Item',
+            'news' => $news,
+        ];
+
+        return view('templates/header', $data)
+            . view('news/edit', $data)
+            . view('templates/footer');
+    }
+
+    /**
+     * Summary of update
+     * @param mixed $slug
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     */
+    public function update(?string $slug = null)
+    {
+        helper('form');
+        $model = model(NewsModel::class);
+        $news = $model->getNews($slug);
+
+        if ($news === null) {
+            throw new PageNotFoundException('Cannot find the news item: ' . $slug);
+        }
+
+        $data = $this->request->getPost(['title', 'body']);
+
+        if (
+            !$this->validateData($data, [
+                'title' => 'required|max_length[255]|min_length[3]',
+                'body' => 'required|max_length[5000]|min_length[10]'
+            ])
+        ) {
+            // the validation fails, so returns the form
+            return $this->edit($slug);
+        }
+
+        $post = $this->validator->getValidated();
+
+        $newSlug = url_title($post['title'], '-', true);
+
+        $model->update($news['id'], [
+            'title' => $post['title'],
+            'slug' => $newSlug,
+            'body' => $post['body'],
+        ]);
+
+        return redirect()->to('/news/' . $newSlug);
+    }
+
+    /**
+     * Delete a news item
+     * @param string|null $slug
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function delete(?string $slug = null)
+    {
+        $model = model(NewsModel::class);
+        $news = $model->getNews($slug);
+
+        if ($news === null) {
+            throw new PageNotFoundException('Cannot find the news item: ' . $slug);
+        }
+
+        $model->delete($news['id']);
+
+        return redirect()->to('/news')->with('message', 'News item deleted successfully');
     }
 }

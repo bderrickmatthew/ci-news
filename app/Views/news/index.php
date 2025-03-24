@@ -1,5 +1,11 @@
 <h2><?= esc($title) ?></h2>
 
+<?php if (session()->getFlashdata('message')): ?>
+<div class="alert">
+    <?= session()->getFlashdata('message') ?>
+</div>
+<?php endif ?>
+
 <?php if ($news_list !== []): ?>
 
 <?php foreach ($news_list as $news_item): ?>

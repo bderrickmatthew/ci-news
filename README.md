@@ -1,46 +1,49 @@
-# News Management System - CodeIgniter 4
+# CodeIgniter 4 News Application
 
-A modern news management system built with CodeIgniter 4, demonstrating CRUD operations, form validation, and database integration. This project showcases my ability to create maintainable and secure PHP applications using industry best practices.
+A dynamic news management system built with CodeIgniter 4, demonstrating CRUD operations, form validation, and database integration. This project showcases modern PHP development practices using the CodeIgniter 4 framework.
 
 ## 🚀 Features
 
-- **News Article Management**: Create, read, update, and delete news articles
-- **Form Validation**: Server-side validation with error messaging
-- **Security**: CSRF protection and XSS filtering
-- **Database Integration**: MySQL database with migrations
-- **Clean Architecture**: Following CodeIgniter 4's MVC pattern
-- **Responsive Design**: Mobile-friendly interface
+- **Article Management**
+  - Create new articles with title and body content
+  - Read articles with clean URL slugs
+  - Update existing articles with automatic slug generation
+  - Delete articles with confirmation
+- **Data Validation**
+  - Server-side validation for all form inputs
+  - Input sanitization and XSS protection
+  - Customized validation rules for titles and content
+- **User Interface**
+  - Clean and responsive design
+  - Flash messages for user feedback
+  - Intuitive navigation
+  - Article listing and individual views
 
 ## 🛠️ Technologies Used
 
 - PHP 8.1
-- CodeIgniter 4.x
-- MySQL
-- HTML5/CSS3
+- CodeIgniter 4.6.0
+- MySQL/MariaDB
 - Composer for dependency management
 - PHPUnit for testing
 
-## 💻 Code Highlights
+## 💻 Code Structure
 
-- **Model-View-Controller Pattern**: Clean separation of concerns
-- **Database Migrations**: Version-controlled database schema
-- **Form Validation**: Robust input validation and sanitization
-- **Security Best Practices**: CSRF protection, SQL injection prevention
-- **Error Handling**: Graceful error management and user feedback
-
-## 🏗️ Architecture
-
-```
+```plaintext
 app/
-├── Controllers/         # Request handling
-│   ├── News.php        # News controller with CRUD operations
-│   └── Pages.php       # Static page controller
-├── Models/             # Database interaction
-│   └── NewsModel.php   # News data management
-├── Views/              # Templates and layouts
-│   ├── news/          # News-specific views
-│   └── templates/      # Reusable layout components
-└── Config/            # Application configuration
+├── Controllers/
+│   └── [News.php](http://_vscodecontentref_/1)          # Handles CRUD operations for news articles
+├── Models/
+│   └── NewsModel.php     # Database interactions for news articles
+├── Views/
+│   ├── news/
+│   │   ├── create.php    # New article form
+│   │   ├── [edit.php](http://_vscodecontentref_/2)      # Edit article form
+│   │   ├── [index.php](http://_vscodecontentref_/3)     # List all articles
+│   │   └── view.php      # Single article view
+│   └── templates/        # Layout templates
+└── Config/
+    └── Routes.php        # Application routing
 ```
 
 ## 🚀 Getting Started

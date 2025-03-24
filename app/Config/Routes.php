@@ -11,10 +11,15 @@ use App\Controllers\Pages;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('news', [News::class, 'index']);
-$routes->get('news/new', [News::class, 'new']);
-$routes->post('news', [News::class, 'create']);
-$routes->get('news/(:segment)', [News::class, 'show']);
+$routes->group('news', static function ($routes) {
+    $routes->get('/', 'News::index');
+    $routes->get('new', 'News::new');
+    $routes->post('/', 'News::create');
+    $routes->get('edit/(:segment)', 'News::edit/$1');
+    $routes->put('(:segment)', 'News::update/$1');
+    $routes->get('(:segment)', 'News::show/$1');
+    $routes->delete('(:segment)', 'News::delete/$1');
+});
 
 $routes->get('pages', [Pages::class, 'index']);
 $routes->get('(:segment)', [Pages::class, 'view']);
