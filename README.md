@@ -71,5 +71,5 @@ app/
 ## 📫 Contact
 
 bderrickmatthew - [bderrickmatthew@gmail.com](mailto:bderrickmatthew@gmail.com)
-Portfolio - [yourportfolio.com](https://yourportfolio.com)
+Portfolio - [Coming Soon](https://yourportfolio.com)
 LinkedIn - [linkedin.com/in/bderrickmatthew](https://linkedin.com/in/bderrickmatthew)
